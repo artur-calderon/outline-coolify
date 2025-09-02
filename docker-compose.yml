@@ -3,7 +3,15 @@ services:
 
   outline:
     image: docker.getoutline.com/outlinewiki/outline:latest
-    env_file: ./docker.env
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      UTILS_SECRET: {UTILS_SECRET}
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      URL: ${URL}
+      PORT: ${PORT}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
     ports:
       - "3000:3000"
     volumes:
@@ -14,7 +22,6 @@ services:
 
   redis:
     image: redis
-    env_file: ./docker.env
     ports:
       - "6379:6379"
     volumes:
@@ -28,7 +35,6 @@ services:
 
   postgres:
     image: postgres
-    env_file: ./docker.env
     ports:
       - "5432:5432"
     volumes:
